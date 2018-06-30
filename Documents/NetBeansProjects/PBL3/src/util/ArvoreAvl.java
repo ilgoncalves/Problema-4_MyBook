@@ -1,27 +1,24 @@
 package util;
 
 import java.util.ArrayList;
-import model.Palavra;
+import java.util.LinkedList;
+import java.util.Iterator;
+import model.*;
 
 public class ArvoreAvl {
 
     protected No raiz;
-    private No noEncontrado;
 
-    public Palavra getPalavraEncontrada() {
-        return (Palavra) noEncontrado.getChave();
-    }
-
-    public void inserir(Palavra k) {
+    public void inserir(Palavra k, Pagina p) {
         No n = new No(k);
-        inserirAVL(this.raiz, n);
+        inserirAVL(this.raiz, n, k, p);
     }
 
-    public boolean busca(String k) {
+    public Palavra busca(String k) {
         return busca(k, raiz);
     }
 
-    private boolean busca(String k, No no) {
+    private Palavra busca(String k, No no) {
 
         if (!(no == null)) {
             if (no.getChave().compareTo(k) > 0) {
@@ -29,19 +26,16 @@ public class ArvoreAvl {
             } else if (no.getChave().compareTo(k) < 0) {
                 return busca(k, no.getDireita());
             } else {
-                noEncontrado = new No(no.getChave());
-                this.noEncontrado = no;
-                return true;
+                return no.getChave();
             }
         }
-        return false;
+        return null;
     }
 
-    public void inserirAVL(No aComparar, No aInserir) {
+    public void inserirAVL(No aComparar, No aInserir, Palavra k, Pagina p) {
 
         if (aComparar == null) {
             this.raiz = aInserir;
-
         } else {
 
             if (aInserir.getChave().compareTo(aComparar.getChave()) < 0) {
@@ -52,7 +46,7 @@ public class ArvoreAvl {
                     verificarBalanceamento(aComparar);
 
                 } else {
-                    inserirAVL(aComparar.getEsquerda(), aInserir);
+                    inserirAVL(aComparar.getEsquerda(), aInserir, k, p);
                 }
 
             } else if (aInserir.getChave().compareTo(aComparar.getChave()) > 0) {
@@ -63,12 +57,13 @@ public class ArvoreAvl {
                     verificarBalanceamento(aComparar);
 
                 } else {
-                    inserirAVL(aComparar.getDireita(), aInserir);
+                    inserirAVL(aComparar.getDireita(), aInserir, k, p);
                 }
 
             } else {
                 // O nó já existe
             }
+
         }
     }
 

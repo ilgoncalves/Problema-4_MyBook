@@ -4,20 +4,19 @@ import controller.Controller;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
+import model.*;
 
 public class Main {
 
     public static void main(String[] args) {
         Controller ctr = new Controller();
-        ctr.lerArquivos("C:\\Users\\1513 IRON\\Documents\\arquivos");
+        ctr.inicia("C:\\Users\\1513 IRON\\Documents\\a");
         Scanner input = new Scanner(System.in);
-        System.out.println("Qual palavra deseja buscar ?");
-        String palavra = "Deus";
-        if (ctr.getArvorePalavras().busca(palavra)) {
-            System.out.println("Entrou");
+        while (true) {
+            System.out.println("Qual palavra deseja buscar ?");
+            String palavra = input.nextLine();
+            ctr.buscarPalavra(palavra);
         }
-        System.out.println(ctr.getArvorePalavras().getPalavraEncontrada().toString());
-
     }
 
 }

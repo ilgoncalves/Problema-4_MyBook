@@ -1,10 +1,10 @@
 package model;
 
 import java.io.File;
+import java.util.Objects;
 
-public class Pagina {
+public class Pagina implements Cloneable {
 
-    private int repeticaoDaPalavraBuscada;
     private String nomeArquivo;
     private int ocorenciaDaPalavras;
 
@@ -12,16 +12,12 @@ public class Pagina {
         return ocorenciaDaPalavras;
     }
 
+    public void incrementaOcorrecia() {
+        ocorenciaDaPalavras++;
+    }
+
     public void setOcorenciaDaPalavras(int ocorenciaDaPalavras) {
         this.ocorenciaDaPalavras = ocorenciaDaPalavras;
-    }
-
-    public int getRepeticaoDaPalavraBuscada() {
-        return repeticaoDaPalavraBuscada;
-    }
-
-    public void setRepeticaoDaPalavraBuscada(int repeticaoDaPalavraBuscada) {
-        this.repeticaoDaPalavraBuscada = repeticaoDaPalavraBuscada;
     }
 
     public String getNomeArquivo() {
@@ -32,4 +28,18 @@ public class Pagina {
         this.nomeArquivo = nomeArquivo;
     }
 
+    @Override
+    public String toString() {
+        return "em: " + nomeArquivo.substring(0, nomeArquivo.length() - 4);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.nomeArquivo.equals(((Pagina) obj).getNomeArquivo());
+    }
+
+    @Override
+    public Pagina clone() throws CloneNotSupportedException {
+        return (Pagina) super.clone();
+    }
 }

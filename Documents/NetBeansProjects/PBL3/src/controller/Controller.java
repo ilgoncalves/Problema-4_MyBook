@@ -1,12 +1,15 @@
 package controller;
 
 import java.io.BufferedReader;
+import java.util.Iterator;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.*;
 import util.*;
 
@@ -20,11 +23,10 @@ public class Controller {
         listaPaginas = new LinkedList();
     }
 
-    public void lerArquivos(String url) {
+    public void inicia(String url) {
         int cont = 0;
         File folder = new File(url);
         File[] listaArquivos = folder.listFiles();
-
         for (File nomeArq : listaArquivos) {
             cont++;
 
@@ -38,24 +40,62 @@ public class Controller {
 
                 String lines = lerArq.readLine();
 
-                while (lines != null) {
+                while (lines != null) { //lendo todas as linhas do arquivo
                     String[] arrayPalavras = lines.split("[,.!:;?] *| +");
                     for (String s : arrayPalavras) {
-                        arvorePalavras.inserir(new Palavra(pagina, s));
+                        Palavra pal = arvorePalavras.busca(s);
+                        Pagina paginaClone = pagina.clone();
+                        paginaClone.setOcorenciaDaPalavras(1);
+                        if (pal != null) {//A palavra ja existe
+                            if (this.jaExiste(pal.getPaginas(), paginaClone) == false) {
+                                pal.insereArquivo(paginaClone);
+                            }
+                        } else {//Só entra com palavras novas
+                            Palavra p = new Palavra(s, paginaClone);
+                            arvorePalavras.inserir(p, paginaClone);
+                        }
+
                     }
                     lines = lerArq.readLine();
                 }
 
                 arq.close();
+
             } catch (IOException e) {
                 System.err.printf("Erro na abertura do arquivo: %s.\n",
                         e.getMessage());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
 
-    public void buscador() {
+    public boolean jaExiste(LinkedList paginas, Pagina pagina) {
+        if (paginas.contains(pagina)) {
+            int index = paginas.indexOf(pagina);
+            Pagina pag = (Pagina) paginas.get(index);
+            pag.incrementaOcorrecia();
+            return true;
+        }
+        return false;
+    }
 
+    public void buscarPalavra(String palavra) {
+        Palavra palavraBuscada = this.getArvorePalavras().busca(palavra);
+        if (palavraBuscada != null) {
+            LinkedList listaPagina = palavraBuscada.getPaginas();
+
+            System.out.println("A palavra " + palavraBuscada.toString() + ", foi encontrada:");
+            Iterator itr = listaPagina.iterator();
+            while (itr.hasNext()) {
+                Pagina p = (Pagina) itr.next();
+
+                System.out.println(p.getOcorenciaDaPalavras() + " vezes " + p.toString());
+            }
+        } else {
+            System.out.println("Palavra não encontrada!");
+        }
     }
 
     public ArvoreAvl getArvorePalavras() {

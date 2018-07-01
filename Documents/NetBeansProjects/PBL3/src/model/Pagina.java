@@ -3,7 +3,7 @@ package model;
 import java.io.File;
 import java.util.Objects;
 
-public class Pagina implements Cloneable {
+public class Pagina implements Cloneable, Comparable {
 
     private String nomeArquivo;
     private int ocorenciaDaPalavras;
@@ -41,5 +41,10 @@ public class Pagina implements Cloneable {
     @Override
     public Pagina clone() throws CloneNotSupportedException {
         return (Pagina) super.clone();
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        return ((Pagina) t).getOcorenciaDaPalavras() - this.ocorenciaDaPalavras;
     }
 }

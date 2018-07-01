@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -85,7 +86,7 @@ public class Controller {
         Palavra palavraBuscada = this.getArvorePalavras().busca(palavra);
         if (palavraBuscada != null) {
             LinkedList listaPagina = palavraBuscada.getPaginas();
-
+            listaPagina = OrdenaPaginasRelevanciaDecrescente(listaPagina);
             System.out.println("A palavra " + palavraBuscada.toString() + ", foi encontrada:");
             Iterator itr = listaPagina.iterator();
             while (itr.hasNext()) {
@@ -96,6 +97,34 @@ public class Controller {
         } else {
             System.out.println("Palavra não encontrada!");
         }
+    }
+
+    public LinkedList OrdenaPaginasRelevanciaCrescente(LinkedList lista) {
+        MergeSort mSort = new MergeSort();
+        Pagina[] p = new Pagina[lista.size()];
+
+        for (int i = 0; i < p.length; i++) {
+            p[i] = (Pagina) lista.get(i);
+        }
+        mSort.mergeSort(p);
+        LinkedList newList = new LinkedList();
+        newList.addAll(Arrays.asList(p));
+        Collections.reverse(newList);
+        return newList;
+    }
+
+    public LinkedList OrdenaPaginasRelevanciaDecrescente(LinkedList lista) {
+        MergeSort mSort = new MergeSort();
+        Pagina[] p = new Pagina[lista.size()];
+
+        for (int i = 0; i < p.length; i++) {
+            p[i] = (Pagina) lista.get(i);
+        }
+        mSort.mergeSort(p);
+        LinkedList newList = new LinkedList();
+        newList.addAll(Arrays.asList(p));
+        return newList;
+
     }
 
     public ArvoreAvl getArvorePalavras() {

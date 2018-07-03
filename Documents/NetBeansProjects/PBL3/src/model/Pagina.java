@@ -8,22 +8,46 @@ public class Pagina implements Cloneable, Comparable {
     private String nomeArquivo;
     private int ocorenciaDaPalavras;
 
+    /**
+     * Método getter do atributo ocorrencia das palavras
+     *
+     * @return
+     */
     public int getOcorenciaDaPalavras() {
         return ocorenciaDaPalavras;
     }
 
+    /**
+     * Método para incrementar a ocorrencia
+     *
+     */
     public void incrementaOcorrecia() {
         ocorenciaDaPalavras++;
     }
 
+    /**
+     * Método setter da ocorrencia das palavras
+     *
+     * @param ocorenciaDaPalavras
+     */
     public void setOcorenciaDaPalavras(int ocorenciaDaPalavras) {
         this.ocorenciaDaPalavras = ocorenciaDaPalavras;
     }
 
+    /**
+     * Método getter do atributo nome do arquivo
+     *
+     * @return
+     */
     public String getNomeArquivo() {
         return nomeArquivo;
     }
 
+    /**
+     * Método setter do nome do arquivo
+     *
+     * @param nomeArquivo
+     */
     public void setNomeArquivo(String nomeArquivo) {
         this.nomeArquivo = nomeArquivo;
     }
@@ -43,6 +67,12 @@ public class Pagina implements Cloneable, Comparable {
         return (Pagina) super.clone();
     }
 
+    /**
+     * Método compareTo para ordenar as paginas pela ocorrencia da palavra
+     *
+     * @param t
+     * @return
+     */
     @Override
     public int compareTo(Object t) {
         return ((Pagina) t).getOcorenciaDaPalavras() - this.ocorenciaDaPalavras;

@@ -9,11 +9,23 @@ public class ArvoreAvl {
 
     protected No raiz;
 
-    public void inserir(Palavra k, Pagina p) {
+    /**
+     * Método para inserir uma palavra na arvore
+     *
+     * @param k uma palavra
+     */
+    public void inserir(Palavra k) {
         No n = new No(k);
-        inserirAVL(this.raiz, n, k, p);
+        inserirAVL(this.raiz, n);
     }
 
+    /**
+     * Método para busca um objeto do tipo palavra em na arvoreAvl através de
+     * uma String
+     *
+     * @param k String do palavra a ser achada
+     * @return retorna o objeto do tipo palavra encontrado
+     */
     public Palavra busca(String k) {
         return busca(k, raiz);
     }
@@ -32,7 +44,13 @@ public class ArvoreAvl {
         return null;
     }
 
-    public void inserirAVL(No aComparar, No aInserir, Palavra k, Pagina p) {
+    /**
+     * Método que insere o no numa arvore e ja a balanceia e ordena
+     *
+     * @param aComparar
+     * @param aInserir
+     */
+    public void inserirAVL(No aComparar, No aInserir) {
 
         if (aComparar == null) {
             this.raiz = aInserir;
@@ -46,7 +64,7 @@ public class ArvoreAvl {
                     verificarBalanceamento(aComparar);
 
                 } else {
-                    inserirAVL(aComparar.getEsquerda(), aInserir, k, p);
+                    inserirAVL(aComparar.getEsquerda(), aInserir);
                 }
 
             } else if (aInserir.getChave().compareTo(aComparar.getChave()) > 0) {
@@ -57,7 +75,7 @@ public class ArvoreAvl {
                     verificarBalanceamento(aComparar);
 
                 } else {
-                    inserirAVL(aComparar.getDireita(), aInserir, k, p);
+                    inserirAVL(aComparar.getDireita(), aInserir);
                 }
 
             } else {
@@ -67,6 +85,11 @@ public class ArvoreAvl {
         }
     }
 
+    /**
+     * Método auxiliar que verifica se o balanceamento da arvore
+     *
+     * @param atual
+     */
     public void verificarBalanceamento(No atual) {
         setBalanceamento(atual);
         int balanceamento = atual.getBalanceamento();
@@ -97,10 +120,21 @@ public class ArvoreAvl {
         }
     }
 
-    public void remover(int k) {
+    /**
+     * Remove um no da Arvore atraves de um Objeto passado
+     *
+     * @param k um objeto que implementa a interface comparable
+     */
+    public void remover(Comparable k) {
         removerAVL(this.raiz, k);
     }
 
+    /**
+     * Acha um no e o Remove
+     *
+     * @param atual no utilizado na recursão
+     * @param k Objeto a ser encontrado
+     */
     public void removerAVL(No atual, Comparable k) {
         if (atual == null) {
             return;
@@ -116,6 +150,11 @@ public class ArvoreAvl {
         }
     }
 
+    /**
+     * Método auxiliar para remover um no passado por parametro
+     *
+     * @param aRemover no à ser removido da arvore
+     */
     public void removerNoEncontrado(No aRemover) {
         No r;
 
@@ -157,6 +196,12 @@ public class ArvoreAvl {
         r = null;
     }
 
+    /**
+     * Faz uma rotação simples da arvore para a esquerda
+     *
+     * @param inicial
+     * @return
+     */
     public No rotacaoEsquerda(No inicial) {
 
         No direita = inicial.getDireita();
@@ -187,6 +232,12 @@ public class ArvoreAvl {
         return direita;
     }
 
+    /**
+     * Faz uma rotação simples da arvore para a direita
+     *
+     * @param inicial
+     * @return
+     */
     public No rotacaoDireita(No inicial) {
 
         No esquerda = inicial.getEsquerda();
@@ -217,16 +268,34 @@ public class ArvoreAvl {
         return esquerda;
     }
 
+    /**
+     * Faz uma rotação dupla na direção esquerda direita
+     *
+     * @param inicial
+     * @return
+     */
     public No duplaRotacaoEsquerdaDireita(No inicial) {
         inicial.setEsquerda(rotacaoEsquerda(inicial.getEsquerda()));
         return rotacaoDireita(inicial);
     }
 
+    /**
+     * Faz uma rotação dupla na direção direita esquerda
+     *
+     * @param inicial
+     * @return
+     */
     public No duplaRotacaoDireitaEsquerda(No inicial) {
         inicial.setDireita(rotacaoDireita(inicial.getDireita()));
         return rotacaoEsquerda(inicial);
     }
 
+    /**
+     * Indica o no sucessor ao no passado por parametro
+     *
+     * @param q
+     * @return
+     */
     public No sucessor(No q) {
         if (q.getDireita() != null) {
             No r = q.getDireita();
@@ -244,6 +313,12 @@ public class ArvoreAvl {
         }
     }
 
+    /**
+     * Verifica a altura da no passado por parametro
+     *
+     * @param atual um no da arvore
+     * @return um inteiro com a altura
+     */
     private int altura(No atual) {
         if (atual == null) {
             return -1;
@@ -267,18 +342,23 @@ public class ArvoreAvl {
         no.setBalanceamento(altura(no.getDireita()) - altura(no.getEsquerda()));
     }
 
-    final protected ArrayList<No> inorder() {
-        ArrayList<No> ret = new ArrayList<No>();
+    /**
+     * Metodo inorde da arvoreAVL
+     *
+     * @return
+     */
+    final public LinkedList inorder() {
+        LinkedList ret = new LinkedList();
         inorder(raiz, ret);
         return ret;
     }
 
-    final protected void inorder(No no, ArrayList<No> lista) {
+    final protected void inorder(No no, LinkedList lista) {
         if (no == null) {
             return;
         }
         inorder(no.getEsquerda(), lista);
-        lista.add(no);
+        lista.add((Palavra) no.getChave());
         inorder(no.getDireita(), lista);
     }
 }

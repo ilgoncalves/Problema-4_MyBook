@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PerfilController">
+   <children>
+      <Label prefHeight="86.0" prefWidth="1280.0" style="-fx-background-color: #4268b3;" textFill="#4268b3" />
+      <ImageView fitHeight="48.0" fitWidth="200.0" layoutX="25.0" layoutY="19.0">
+         <image>
+            <Image url="@../imagens/logo.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="buscador" layoutX="283.0" layoutY="25.0" prefHeight="35.0" prefWidth="426.0" promptText="Pesquise um usuario aqui" style="-fx-background-radius: 6;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Button layoutX="723.0" layoutY="25.0" mnemonicParsing="false" onAction="#buscarPessoas" prefHeight="35.0" prefWidth="70.0" text="Buscar" textFill="#293a5b">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+      <Button layoutX="1141.0" layoutY="30.0" mnemonicParsing="false" onAction="#sair" text="Sair(Logout)" />
+      <ImageView fx:id="imgPerfil" fitHeight="193.0" fitWidth="257.0" layoutX="25.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="nomeUser" layoutX="314.0" layoutY="258.0">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

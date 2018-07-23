@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginControler">
+    <children>
+        <Label prefHeight="96.0" prefWidth="1280.0" style="-fx-background-color: #4268b3;" textAlignment="CENTER" />
+        <Label alignment="TOP_CENTER" layoutX="536.0" layoutY="24.0" prefHeight="48.0" prefWidth="208.0" text="Login" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font size="29.0" />
+            </font>
+        </Label>
+        <TextField fx:id="login" layoutX="500.0" layoutY="420.0" prefHeight="39.0" prefWidth="336.0" promptText="E-mail">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <PasswordField fx:id="password" layoutX="500.0" layoutY="500.0" prefHeight="39.0" prefWidth="336.0" promptText="Password" style="-fx-pref-width: 336; -fx-min-height: 39;">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </PasswordField>
+        <Button fx:id="cadastre" layoutX="667.0" layoutY="590.0" mnemonicParsing="false" onAction="#cadastrese" style="-fx-background-color: #4268b3;" text="Cadastre-se" textFill="WHITE">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <effect>
+                <InnerShadow color="#2c2c2c" />
+            </effect>
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Button>
+        <Button fx:id="btnLogin" layoutX="500.0" layoutY="590.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #4268b3;" text="Login" textFill="WHITE">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <effect>
+                <InnerShadow color="#2c2c2c" />
+            </effect>
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Button>
+      <Label fx:id="mensagemErro" alignment="CENTER" layoutX="520.0" layoutY="534.0" prefHeight="56.0" prefWidth="295.0" textAlignment="CENTER" textFill="#e40000">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="500.0" layoutY="390.0" opacity="0.62" text="Digite seu e-mail:" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="500.0" layoutY="470.0" opacity="0.62" text="Digite sua senha:" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgInicio" fitHeight="233.0" fitWidth="295.0" layoutX="521.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</AnchorPane>

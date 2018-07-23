@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.cadastroController">
+    <children>
+        <Label prefHeight="96.0" prefWidth="1280.0" style="-fx-background-color: #4268b3;" textAlignment="CENTER" />
+        <Label alignment="TOP_CENTER" layoutX="536.0" layoutY="24.0" prefHeight="48.0" prefWidth="208.0" text="Cadastro" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font size="29.0" />
+            </font>
+        </Label>
+        <TextField fx:id="userName" layoutX="484.0" layoutY="140.0" prefHeight="39.0" prefWidth="336.0" promptText="Username">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <PasswordField fx:id="password" layoutX="484.0" layoutY="220.0" prefHeight="39.0" prefWidth="336.0" promptText="Password" style="-fx-pref-width: 336; -fx-min-height: 39;">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </PasswordField>
+        <TextField fx:id="nome" layoutX="484.0" layoutY="300.0" prefHeight="39.0" prefWidth="336.0" promptText="Nome">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="endereço" layoutX="484.0" layoutY="380.0" prefHeight="39.0" prefWidth="336.0" promptText="Endereço">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="telefone" layoutX="484.0" layoutY="460.0" prefHeight="39.0" prefWidth="336.0" promptText="Telefone">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="email" layoutX="484.0" layoutY="540.0" prefHeight="39.0" prefWidth="336.0" promptText="Email">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="nascimento" layoutX="484.0" layoutY="620.0" prefHeight="39.0" prefWidth="336.0" promptText="Nascimento">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <Button fx:id="btn" layoutX="671.0" layoutY="701.0" mnemonicParsing="false" onAction="#cadastroBotao" style="-fx-background-color: #4268b3;" text="Cadastrar" textFill="WHITE">
+            <font>
+                <Font size="26.0" />
+            </font>
+            
+            <effect>
+                <InnerShadow color="#2c2c2c" />
+            </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </Button>
+        <Button fx:id="btnVoltar" layoutX="484.0" layoutY="701.0" mnemonicParsing="false" onAction="#VoltarMenu" style="-fx-background-color: #4268b3;" text="Voltar" textFill="WHITE">
+
+            <effect>
+                <InnerShadow color="#2c2c2c" />
+            </effect>
+            <font>
+                <Font size="26.0" />
+            </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </Button>
+      <Label layoutX="484.0" layoutY="110.0" opacity="0.66" text="Digite um nome de usuario:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="190.0" opacity="0.66" text="Digite uma senha:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="270.0" opacity="0.66" text="Digite seu nome completo:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="350.0" opacity="0.66" text="Digite seu endereço:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="430.0" opacity="0.66" text="Digite seu telefone:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="510.0" opacity="0.66" text="Digite seu email:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="484.0" layoutY="590.0" opacity="0.66" text="Digite sua data de nascimento:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgPerfil" fitHeight="192.0" fitWidth="196.0" layoutX="103.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagens/user.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="71.0" layoutY="110.0" opacity="0.66" text="Selecione uma imagem de perfil:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="80.0" layoutY="346.0" mnemonicParsing="false" onAction="#procurarImg" prefHeight="39.0" prefWidth="239.0" style="-fx-background-color: #4268b3;" text="Procurar Imagem" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <InnerShadow color="#2c2c2c" />
+         </effect>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+    </children>
+</AnchorPane>

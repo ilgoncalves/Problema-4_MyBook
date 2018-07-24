@@ -72,7 +72,6 @@ public class cadastroController {
 
     @FXML
     void procurarImg(ActionEvent event) {
-        System.out.println("as");
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "JPG & GIF Images", "jpg", "gif", "png");

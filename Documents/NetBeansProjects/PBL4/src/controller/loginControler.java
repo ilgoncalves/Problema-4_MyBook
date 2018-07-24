@@ -46,7 +46,7 @@ public class loginControler implements Initializable {
     }
 
     @FXML
-    void login(ActionEvent event) {
+    void login(ActionEvent event) throws IOException {
         Usuario user = ctr.verificarLogin(login.getText());
         if (login.getText().equals("") && password.getText().equals("")) {
             mensagemErro.setText("Você não digitou nada!");
@@ -59,22 +59,9 @@ public class loginControler implements Initializable {
                 if (user.getPassword().equals(password.getText())) {
                     System.out.println("Entrou no perfil");
                     System.out.println(user.toString());
-                    //O problema é justamente aqui, quero passar esse user para a tela de perfil para que eu possa
-                    //exibir as informações dele la.
-                    //So que eu não posso instanciar um PerfilController aqui
-                    //poq ele é iniciado la na classe main no metodo start.
-
-//                    PerfilController.setUserAtual(user);
-                    //Fazendo isso eu consigo passar o objeto para aquele controler la, mas não tem um metodo para exibir as informações
-                    //ja tentei fazer criar um metodo estatico e iniciar aqui;
-                    //Tipo assim:
-//                      PerfilController.iniciar();
-                    //mas eu não posso, pois como "userAtual" é estatico, mas os atributos do FXML não podem ser estaticos, ou seja
-                    //não da para atribui-los à "userAtual", como foi tentado fazer la;
-                    //Ja tentei o singleton tambem
-//                    PerfilController ctrP = PerfilController.getInstace();
-//                    ctrP.setUserAtual(user);
-//                    ctrP.iniciar();
+                    PerfilController ctrP = Main.getCtrPerfil();
+                    ctrP.setUserAtual(user);
+                    ctrP.iniciar();
                     Main.changeScreen("perfil");
                     mensagemErro.setText("");
                 } else {

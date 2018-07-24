@@ -1,8 +1,10 @@
 package controller;
 
 import exception.DuplicateKeyException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 import javafx.scene.image.Image;
 import model.*;
 import util.AdjMapGraph;
@@ -42,4 +44,16 @@ public class Controller {
         }
     }
 
+    public Set<Usuario> buscarUsuarios(String nomeAComparar) {
+        Set<Usuario> users = this.usuarios.getAdjacencias().keySet();
+        Set<Usuario> userMesmoNome = new HashSet<>();
+        for (Usuario u : users) {
+            String nomeDoUsuario = u.getNome().toLowerCase();
+            nomeAComparar = nomeAComparar.toLowerCase();
+            if (nomeDoUsuario.contains(nomeAComparar)) {
+                userMesmoNome.add(u);
+            }
+        }
+        return userMesmoNome;
+    }
 }

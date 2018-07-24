@@ -1,8 +1,9 @@
 package controller;
 
-import com.sun.media.sound.EmergencySoundbank;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,34 +32,33 @@ public class PerfilController implements Initializable {
     @FXML
     private Label nomeUser;
 
-    private static Usuario userAtual;
+    private Usuario userAtual;
 
-//    private static PerfilController controler;
-//    private PerfilController() {
-//
-//    }
-//    public static PerfilController getInstace() {
-//        if (controler == null) {
-//            controler = new PerfilController();
-//        }
-//        return controler;
-//    }
-    public static Usuario getUserAtual() {
+    public void iniciar() {
+        System.out.println(userAtual);
+        imgPerfil.setImage(userAtual.getFoto());
+        nomeUser.setText(userAtual.getNome());
+    }
+
+    public Usuario getUserAtual() {
         return userAtual;
     }
 
-    public static void setUserAtual(Usuario userAtual) {
-        PerfilController.userAtual = userAtual;
+    public void setUserAtual(Usuario userAtual) {
+        this.userAtual = userAtual;
     }
 
-//Metodo citado nos comentario do loginControler
-//    public static void iniciar() {
-//        imgPerfil.setImage(userAtual.getFoto());
-//        nomeUser.setText(userAtual.getNome());
-//    }
     @FXML
     void buscarPessoas(ActionEvent event) {
-
+        String busca = buscador.getText();
+        Set<Usuario> users = ctr.buscarUsuarios(busca);
+        if (users.isEmpty()) {
+            System.out.println("Nenhuma Usuario foi encontrado");
+        } else {
+            for (Usuario u : users) {
+                System.out.println(u.getNome());
+            }
+        }
     }
 
     @FXML

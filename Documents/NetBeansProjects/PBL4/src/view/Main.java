@@ -23,6 +23,7 @@ public class Main extends Application {
     private static Scene login;
     private static Scene cadastrar;
     private static Scene perfil;
+    private static PerfilController ctrPerfil;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -37,10 +38,18 @@ public class Main extends Application {
         login = new Scene(fxmlLogin);
         Parent fxmlCadastro = FXMLLoader.load(getClass().getResource("cadastro.fxml"));
         cadastrar = new Scene(fxmlCadastro);
-        Parent fxmlPerfil = FXMLLoader.load(getClass().getResource("Perfil.fxml"));
+
+        FXMLLoader fx = new FXMLLoader(getClass().getResource("Perfil.fxml"));
+        Parent fxmlPerfil = fx.load();
+        ctrPerfil = fx.getController();
         perfil = new Scene(fxmlPerfil);
+
         stage.setScene(login);
         stage.show();
+    }
+
+    public static PerfilController getCtrPerfil() {
+        return ctrPerfil;
     }
 
     public static void changeScreen(String scr) {

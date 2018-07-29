@@ -57,8 +57,9 @@ public class loginControler implements Initializable {
         } else {
             if (user != null) {
                 if (user.getPassword().equals(password.getText())) {
-                    System.out.println("Entrou no perfil");
-                    System.out.println(user.toString());
+                    //debug
+//                    System.out.println("Entrou no perfil");
+//                    System.out.println(user.toString());
                     PerfilController ctrP = Main.getCtrPerfil();
                     ctrP.setUserAtual(user);
                     ctrP.iniciar();
@@ -80,7 +81,7 @@ public class loginControler implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("C:\\Users\\1513 IRON\\Documents\\NetBeansProjects\\PBL4\\src\\imagens\\icon.png");
+        File file = new File("imagens/icon.png");
         imgInicio.setImage(new Image(file.toURI().toString()));
     }
 

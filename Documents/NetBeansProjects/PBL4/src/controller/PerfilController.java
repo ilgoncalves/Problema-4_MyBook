@@ -1,16 +1,30 @@
 package controller;
 
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import model.Usuario;
 import view.Main;
 
@@ -22,6 +36,25 @@ import view.Main;
 public class PerfilController implements Initializable {
 
     private Controller ctr = Main.getCtr(); //Controller Geral
+    private Usuario userAtual;
+
+    @FXML
+    private Button btnFecharBusca;
+
+    @FXML
+    private ListView<Usuario> listViewAmigos;
+
+    @FXML
+    private ListView<String> listViewMensagens;
+
+    @FXML
+    private Button btnIrPara;
+
+    @FXML
+    private TextArea campoMensagem;
+
+    @FXML
+    private ListView<Usuario> listViewBusca;
 
     @FXML
     private TextField buscador;
@@ -32,12 +65,64 @@ public class PerfilController implements Initializable {
     @FXML
     private Label nomeUser;
 
-    private Usuario userAtual;
+    @FXML
+    private Label loginUser;
+
+    @FXML
+    private ImageView logo;
+
+    @FXML
+    private Label qntdAmigos;
+
+    @FXML
+    private Label emailUser;
+
+    @FXML
+    private Label nomeExibicao;
+
+    @FXML
+    private Label nascimentoUser;
+
+    @FXML
+    private Label telefoneUser;
+
+    @FXML
+    private Label enderecoUser;
+
+    private AmigoPerfilController control;
+
+    private Scene cenaAmigoPerfil;
 
     public void iniciar() {
-        System.out.println(userAtual);
+        exibeMesagens();
+        exibeAmigos();
+        verificaQntdAmigos();
+        btnIrPara.setVisible(false);
+        listViewBusca.setVisible(false);
+        btnFecharBusca.setVisible(false);
+        buscador.setText("");
+        File file = new File("imagens/logo.jpg");
+        logo.setImage(new Image(file.toURI().toString()));
+        String[] nomeArray = userAtual.getNome().split(" ");
+        String nome = nomeArray[0];
+        nomeExibicao.setText(nome);
         imgPerfil.setImage(userAtual.getFoto());
         nomeUser.setText(userAtual.getNome());
+        loginUser.setText(userAtual.getLogin());
+        emailUser.setText(userAtual.getEmail());
+        enderecoUser.setText(userAtual.getEndereço());
+        nascimentoUser.setText(userAtual.getNascimento());
+        telefoneUser.setText(userAtual.getTelefone());
+
+    }
+
+    public void verificaQntdAmigos() {
+        if (ctr.getUsuarios().getAdjacentes(userAtual) == null) {
+            qntdAmigos.setText("Você ainda não possui amigos");
+        } else {
+            qntdAmigos.setText("Você possui " + ctr.getUsuarios().getAdjacentes(userAtual).size() + " amigos");
+        }
+
     }
 
     public Usuario getUserAtual() {
@@ -49,15 +134,98 @@ public class PerfilController implements Initializable {
     }
 
     @FXML
-    void buscarPessoas(ActionEvent event) {
+    void buscarPessoas(ActionEvent event) throws IOException {
+
+        listViewBusca.getItems().clear();
         String busca = buscador.getText();
+
         Set<Usuario> users = ctr.buscarUsuarios(busca);
+
         if (users.isEmpty()) {
-            System.out.println("Nenhuma Usuario foi encontrado");
+            System.out.println("Nenhum Usuario foi encontrado");
+        } else if (busca.equals("")) {
+            System.out.println("Digite alguma coisa para buscar");
         } else {
+            listViewBusca.setVisible(true);
+            btnFecharBusca.setVisible(true);
+            btnIrPara.setVisible(true);
+
+            listViewBusca.setCellFactory(usuarioListView -> new UsuarioListViewCell());
             for (Usuario u : users) {
-                System.out.println(u.getNome());
+                if (!u.equals(userAtual)) {
+                    listViewBusca.getItems().add(u);
+                }
             }
+        }
+    }
+
+    @FXML
+    void irPara(ActionEvent event) throws IOException {
+        Usuario user = listViewBusca.getSelectionModel().getSelectedItem();
+        if (user == null) {
+            return;
+        }
+//        System.out.println(user);
+        FXMLLoader amigoPefil = new FXMLLoader(getClass().getResource("/view/AmigoPerfil.fxml"));
+        Parent fxmlAmigoPerfil = amigoPefil.load();
+        cenaAmigoPerfil = new Scene(fxmlAmigoPerfil);
+
+        control = amigoPefil.getController();
+        control.setUsuarioLogado(userAtual);
+        control.setUsuarioPerfil(user);
+        control.iniciar();
+
+        Main.setMyStage(cenaAmigoPerfil);
+    }
+
+    @FXML
+    void irParaAmigo(ActionEvent event) {
+        Usuario amigo = listViewAmigos.getSelectionModel().getSelectedItem();
+        if (amigo == null) {
+            return;
+        }
+        control.setUsuarioLogado(userAtual);
+        control.setUsuarioPerfil(amigo);
+        control.iniciar();
+        Main.setMyStage(cenaAmigoPerfil);
+    }
+
+    @FXML
+    void excluirMensagens(ActionEvent event) {
+        String mensagem = listViewMensagens.getSelectionModel().getSelectedItem();
+        if (mensagem == null) {
+            return;
+        }
+        listViewMensagens.getItems().remove(mensagem);
+        userAtual.getMensagens().remove(mensagem);
+    }
+
+    @FXML
+    void fecharBusca(ActionEvent event) {
+        listViewBusca.setVisible(false);
+        btnFecharBusca.setVisible(false);
+        btnIrPara.setVisible(false);
+    }
+
+    @FXML
+    void publicarMensagem(ActionEvent event) {
+        String msg = campoMensagem.getText();
+        campoMensagem.setText("");
+        userAtual.adicionaMensagem(msg);
+        exibeMesagens();
+    }
+
+    public void exibeMesagens() {
+        ObservableList list = FXCollections.observableArrayList(userAtual.getMensagens());
+        listViewMensagens.setItems(list);
+    }
+
+    public void exibeAmigos() {
+        listViewAmigos.getItems().clear();
+        listViewAmigos.setCellFactory(usuarioListView -> new UsuarioListViewCell());
+        Set<Usuario> ks = ctr.getUsuarios().getAdjacencias().get(userAtual).keySet();
+        for (Usuario u : ks) {
+            listViewAmigos.getItems().add(u);
         }
     }
 

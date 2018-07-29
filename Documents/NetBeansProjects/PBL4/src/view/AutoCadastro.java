@@ -15,9 +15,9 @@ public class AutoCadastro {
     }
 
     public static void carregaUsuarios(Controller ctr) throws DuplicateKeyException {
-        File file = new File("C:\\Users\\1513 IRON\\Documents\\NetBeansProjects\\PBL4\\src\\imagens\\user.png");
+        File file = new File("imagens/user.png");
         Image img = new Image(file.toURI().toString());
-        File file2 = new File("C:\\Users\\1513 IRON\\Documents\\NetBeansProjects\\PBL4\\src\\imagens\\igor.png");
+        File file2 = new File("imagens/igor.png");
         Image imgIgor = new Image(file2.toURI().toString());
         ctr.cadastroUsuario("user1", "123", "User 1", "user1@hotmail.com", "01/01/2018", "Rua Prof. Thereza Cunha", "(75)99213-1578", img);
         ctr.cadastroUsuario("user2", "123", "User 2", "user2@hotmail.com", "02/01/2018", "Rua Prof. Thereza Cunha", "(75)99213-1578", img);

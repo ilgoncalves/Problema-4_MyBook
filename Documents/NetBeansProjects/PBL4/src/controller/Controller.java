@@ -18,6 +18,10 @@ public class Controller {
 
     private AdjMapGraph<Usuario> usuarios = new AdjMapGraph<>();
 
+    public AdjMapGraph<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
     public Controller() {
 
     }

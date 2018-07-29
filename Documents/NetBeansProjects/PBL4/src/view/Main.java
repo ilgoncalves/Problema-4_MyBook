@@ -24,11 +24,13 @@ public class Main extends Application {
     private static Scene cadastrar;
     private static Scene perfil;
     private static PerfilController ctrPerfil;
+    private static Scene amigoPerfil;
+    private static PerfilController ctrAmigoPerfil;
 
     @Override
     public void start(Stage stage) throws Exception {
         myStage = stage;
-        File file = new File("C:\\Users\\1513 IRON\\Documents\\NetBeansProjects\\PBL4\\src\\imagens\\icon.png");
+        File file = new File("imagens/icon.png");
         Image icon = new Image(file.toURI().toString());
         stage.getIcons().add(icon);
         stage.setTitle("MyBook");
@@ -64,6 +66,10 @@ public class Main extends Application {
                 myStage.setScene(perfil);
                 break;
         }
+    }
+
+    public static void setMyStage(Scene scene) {
+        Main.myStage.setScene(scene);
     }
 
     public static Controller getCtr() {

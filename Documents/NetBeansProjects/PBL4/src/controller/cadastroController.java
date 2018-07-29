@@ -2,9 +2,12 @@ package controller;
 
 import exception.DuplicateKeyException;
 import java.io.File;
+import java.net.URL;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Usuario;
 import view.Main;
 
-public class cadastroController {
+public class cadastroController implements Initializable {
 
     private Controller ctr = Main.getCtr();
     private Image imagem;
@@ -66,7 +69,7 @@ public class cadastroController {
         System.out.println("");
 
         Main.changeScreen("login");
-        File file = new File("C:\\Users\\1513 IRON\\Documents\\NetBeansProjects\\PBL4\\src\\imagens\\user.png");
+        File file = new File("imagens/user.png");
         imgPerfil.setImage(new Image(file.toURI().toString()));
     }
 
@@ -79,6 +82,9 @@ public class cadastroController {
         chooser.setDialogTitle("Escolhendo arquivo");
         chooser.showOpenDialog(null);
         File file = chooser.getSelectedFile();
+        if (file == null) {
+            return;
+        }
         imagem = new Image(file.toURI().toString());
         imgPerfil.setImage(imagem);
 
@@ -87,6 +93,12 @@ public class cadastroController {
     @FXML
     void VoltarMenu(ActionEvent event) {
         Main.changeScreen("login");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        File file = new File("imagens/user.png");
+        imgPerfil.setImage(new Image(file.toURI().toString()));
     }
 
 }

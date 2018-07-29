@@ -10,35 +10,166 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PerfilController">
-   <children>
-      <Label prefHeight="86.0" prefWidth="1280.0" style="-fx-background-color: #4268b3;" textFill="#4268b3" />
-      <ImageView fitHeight="48.0" fitWidth="200.0" layoutX="25.0" layoutY="19.0">
-         <image>
-            <Image url="@../imagens/logo.jpg" />
-         </image>
-      </ImageView>
-      <TextField fx:id="buscador" layoutX="283.0" layoutY="25.0" prefHeight="35.0" prefWidth="426.0" promptText="Pesquise um usuario aqui" style="-fx-background-radius: 6;">
+    <children>
+        <Label prefHeight="86.0" prefWidth="1280.0" style="-fx-background-color: #4268b3;" textFill="#4268b3" />
+        <Label layoutY="86.0" prefHeight="716.0" prefWidth="262.0" style="-fx-background-color: #4268b3;" textFill="#4268b3" />
+        <ImageView fx:id="logo" fitHeight="48.0" fitWidth="200.0" layoutX="25.0" layoutY="19.0">
+            <image>
+                <Image url="@../../imagens/logo.jpg" />
+            </image>
+        </ImageView>
+        <TextField fx:id="buscador" layoutX="283.0" layoutY="25.0" prefHeight="35.0" prefWidth="426.0" promptText="Pesquise um usuario aqui" style="-fx-background-radius: 6;">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextField>
+        <Button layoutX="723.0" layoutY="25.0" mnemonicParsing="false" onAction="#buscarPessoas" prefHeight="35.0" prefWidth="70.0" text="Buscar" textFill="#293a5b">
+            <font>
+                <Font size="15.0" />
+            </font>
+            <effect>
+                <InnerShadow />
+            </effect>
+        </Button>
+        <Button layoutX="1166.0" layoutY="26.0" mnemonicParsing="false" onAction="#sair" prefHeight="35.0" prefWidth="82.0" text="Sair(Logout)">
+         <effect>
+            <InnerShadow />
+         </effect></Button>
+        <ImageView fx:id="imgPerfil" fitHeight="213.0" fitWidth="230.0" layoutX="12.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
+        <Label layoutX="12.0" layoutY="360.0" prefHeight="27.0" prefWidth="70.0" text="Nome:" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <Label fx:id="emailUser" layoutX="20.0" layoutY="445.0" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="12.0" layoutY="420.0" text="E-mail:" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="12.0" layoutY="480.0" text="Nascimento:" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="nascimentoUser" layoutX="20.0" layoutY="505.0" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="16.0" />
+            </font>
+        </Label>
+        <Label fx:id="enderecoUser" layoutX="20.0" layoutY="565.0" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="12.0" layoutY="540.0" text="Endereço:" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="12.0" layoutY="600.0" text="Telefone:" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="telefoneUser" layoutX="20.0" layoutY="625.0" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="16.0" />
+            </font>
+        </Label>
+        <Label fx:id="loginUser" layoutX="20.0" layoutY="685.0" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="12.0" layoutY="660.0" text="Login:" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="nomeUser" layoutX="20.0" layoutY="385.0" prefHeight="20.0" prefWidth="222.0" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="16.0" />
+            </font>
+        </Label>
+        <Label fx:id="nomeExibicao" alignment="CENTER" layoutX="39.0" layoutY="309.0" prefHeight="35.0" prefWidth="185.0" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="19.0" />
+            </font>
+        </Label>
+      <Separator layoutX="919.0" layoutY="86.0" orientation="VERTICAL" prefHeight="713.0" prefWidth="5.0" />
+      <ListView fx:id="listViewMensagens" layoutX="262.0" layoutY="347.0" prefHeight="361.0" prefWidth="659.0" />
+      <TextArea fx:id="campoMensagem" layoutX="283.0" layoutY="143.0" prefHeight="156.0" prefWidth="495.0">
          <font>
-            <Font size="16.0" />
+            <Font name="Arial" size="16.0" />
          </font>
-      </TextField>
-      <Button layoutX="723.0" layoutY="25.0" mnemonicParsing="false" onAction="#buscarPessoas" prefHeight="35.0" prefWidth="70.0" text="Buscar" textFill="#293a5b">
+      </TextArea>
+      <Label layoutX="283.0" layoutY="108.0" opacity="0.66" prefHeight="35.0" prefWidth="495.0" text="Digite uma mensagem para postar em seu perfil:">
          <font>
-            <Font size="15.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
+      </Label>
+      <Label layoutX="283.0" layoutY="309.0" opacity="0.77" text="Mensagens">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="29.0" />
+         </font>
+      </Label>
+      <Button layoutX="793.0" layoutY="143.0" mnemonicParsing="false" onAction="#publicarMensagem" prefHeight="48.0" prefWidth="111.0" text="Publicar">
+         <font>
+            <Font size="18.0" />
+         </font>
          <effect>
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="1141.0" layoutY="30.0" mnemonicParsing="false" onAction="#sair" text="Sair(Logout)" />
-      <ImageView fx:id="imgPerfil" fitHeight="193.0" fitWidth="257.0" layoutX="25.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="nomeUser" layoutX="314.0" layoutY="258.0">
+      <ListView fx:id="listViewBusca" layoutX="283.0" layoutY="60.0" prefHeight="156.0" prefWidth="426.0" />
+      <Button fx:id="btnFecharBusca" layoutX="652.0" layoutY="62.0" mnemonicParsing="false" onAction="#fecharBusca" prefHeight="9.0" prefWidth="55.0" text="Fechar">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
+      <Button fx:id="btnIrPara" layoutX="812.0" layoutY="25.0" mnemonicParsing="false" onAction="#irPara" prefHeight="35.0" prefWidth="123.0" text="Ir para o Perfil" textFill="#293a5b">
+         <effect>
+            <InnerShadow />
+         </effect>
          <font>
-            <Font size="29.0" />
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="749.0" layoutY="719.0" mnemonicParsing="false" onAction="#excluirMensagens" prefHeight="61.0" prefWidth="155.0" text="Excluir mensagem" textFill="#293a5b">
+         <effect>
+            <InnerShadow />
+         </effect>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <ListView fx:id="listViewAmigos" layoutX="920.0" layoutY="186.0" prefHeight="522.0" prefWidth="360.0" />
+      <Label layoutX="930.0" layoutY="106.0" opacity="0.77" text="Amigos">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="29.0" />
          </font>
       </Label>
-   </children>
+      <Button layoutX="1081.0" layoutY="732.0" mnemonicParsing="false" onAction="#irParaAmigo" prefHeight="35.0" prefWidth="185.0" text="Ir para o Perfil do Amigo" textFill="#293a5b">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <effect>
+            <InnerShadow />
+         </effect>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="qntdAmigos" layoutX="972.0" layoutY="143.0" opacity="0.63">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Label>
+    </children>
 </AnchorPane>

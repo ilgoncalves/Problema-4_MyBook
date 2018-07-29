@@ -1,5 +1,8 @@
 package model;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javafx.scene.image.Image;
 
@@ -12,6 +15,7 @@ public class Usuario {
     private String nascimento;
     private String endereço;
     private String telefone;
+    private List<String> mensagens;
 
     private Image foto;
 
@@ -32,6 +36,19 @@ public class Usuario {
         this.endereço = endereço;
         this.telefone = telefone;
         this.foto = foto;
+        mensagens = new ArrayList<>();
+    }
+
+    public void adicionaMensagem(String msg) {
+        mensagens.add(msg);
+    }
+
+    public List<String> getMensagens() {
+        return mensagens;
+    }
+
+    public void setMensagens(List<String> mensagens) {
+        this.mensagens = mensagens;
     }
 
     public String getLogin() {
@@ -97,7 +114,10 @@ public class Usuario {
 
     @Override
     public boolean equals(Object obj) {
-        return this.email.equals(((Usuario) obj).getEmail()) || this.login.equals(((Usuario) obj).login);
+        if (obj != null && obj instanceof Usuario) {
+            return this.email.equals(((Usuario) obj).getEmail()) || this.login.equals(((Usuario) obj).login);
+        }
+        return false;
     }
 
     @Override

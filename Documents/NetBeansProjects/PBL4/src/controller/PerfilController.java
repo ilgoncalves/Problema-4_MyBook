@@ -29,9 +29,9 @@ import model.Usuario;
 import view.Main;
 
 /**
- * FXML Controller class
+ * Classe controladora da tela do perfil do usuario logado
  *
- * @author igor
+ * @author Igor Gonçalves
  */
 public class PerfilController implements Initializable {
 
@@ -92,8 +92,15 @@ public class PerfilController implements Initializable {
     private AmigoPerfilController control;
 
     private Scene cenaAmigoPerfil;
+    private FXMLLoader amigoPefil;
 
-    public void iniciar() {
+    /**
+     * Metodo auxiliar para exibir todas as informações do usuario na tela de
+     * perfil assim que a tela ficar visivel
+     *
+     * @throws java.io.IOException
+     */
+    public void iniciar() throws IOException {
         exibeMesagens();
         exibeAmigos();
         verificaQntdAmigos();
@@ -114,8 +121,16 @@ public class PerfilController implements Initializable {
         nascimentoUser.setText(userAtual.getNascimento());
         telefoneUser.setText(userAtual.getTelefone());
 
+        amigoPefil = new FXMLLoader(getClass().getResource("/view/AmigoPerfil.fxml"));
+        Parent fxmlAmigoPerfil = amigoPefil.load();
+        cenaAmigoPerfil = new Scene(fxmlAmigoPerfil);
+        control = amigoPefil.getController();
+
     }
 
+    /**
+     * Calcula quantos amigos o usuario logado tem
+     */
     public void verificaQntdAmigos() {
         if (ctr.getUsuarios().getAdjacentes(userAtual) == null) {
             qntdAmigos.setText("Você ainda não possui amigos");
@@ -125,14 +140,30 @@ public class PerfilController implements Initializable {
 
     }
 
+    /**
+     * Getter do usuario logado
+     *
+     * @return o usuario
+     */
     public Usuario getUserAtual() {
         return userAtual;
     }
 
+    /**
+     * Setter do usuario logado
+     *
+     * @param userAtual
+     */
     public void setUserAtual(Usuario userAtual) {
         this.userAtual = userAtual;
     }
 
+    /**
+     * Busca pessoa na rede Social através do nome
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void buscarPessoas(ActionEvent event) throws IOException {
 
@@ -159,18 +190,19 @@ public class PerfilController implements Initializable {
         }
     }
 
+    /**
+     * Metodo para ir para o perfil do usuario buscado
+     *
+     * @param event
+     */
     @FXML
-    void irPara(ActionEvent event) throws IOException {
+    void irPara(ActionEvent event) {
         Usuario user = listViewBusca.getSelectionModel().getSelectedItem();
         if (user == null) {
             return;
         }
 //        System.out.println(user);
-        FXMLLoader amigoPefil = new FXMLLoader(getClass().getResource("/view/AmigoPerfil.fxml"));
-        Parent fxmlAmigoPerfil = amigoPefil.load();
-        cenaAmigoPerfil = new Scene(fxmlAmigoPerfil);
 
-        control = amigoPefil.getController();
         control.setUsuarioLogado(userAtual);
         control.setUsuarioPerfil(user);
         control.iniciar();
@@ -178,6 +210,11 @@ public class PerfilController implements Initializable {
         Main.setMyStage(cenaAmigoPerfil);
     }
 
+    /**
+     * Metodo para ir para o perfil do amigo selecionado
+     *
+     * @param event
+     */
     @FXML
     void irParaAmigo(ActionEvent event) {
         Usuario amigo = listViewAmigos.getSelectionModel().getSelectedItem();
@@ -190,6 +227,11 @@ public class PerfilController implements Initializable {
         Main.setMyStage(cenaAmigoPerfil);
     }
 
+    /**
+     * Metodo para excluir uma mensagem seleciona
+     *
+     * @param event
+     */
     @FXML
     void excluirMensagens(ActionEvent event) {
         String mensagem = listViewMensagens.getSelectionModel().getSelectedItem();
@@ -200,6 +242,11 @@ public class PerfilController implements Initializable {
         userAtual.getMensagens().remove(mensagem);
     }
 
+    /**
+     * Metodo para fechar o campo de busca ao clicar no botao
+     *
+     * @param event
+     */
     @FXML
     void fecharBusca(ActionEvent event) {
         listViewBusca.setVisible(false);
@@ -207,6 +254,11 @@ public class PerfilController implements Initializable {
         btnIrPara.setVisible(false);
     }
 
+    /**
+     * Metodo para publicar uma mensagem ao clicar no botao
+     *
+     * @param event
+     */
     @FXML
     void publicarMensagem(ActionEvent event) {
         String msg = campoMensagem.getText();
@@ -215,11 +267,18 @@ public class PerfilController implements Initializable {
         exibeMesagens();
     }
 
+    /**
+     * Metodo auxiliar para carregar as mensagens do usuario na listView de
+     * mensagens
+     */
     public void exibeMesagens() {
         ObservableList list = FXCollections.observableArrayList(userAtual.getMensagens());
         listViewMensagens.setItems(list);
     }
 
+    /**
+     * Metodo auxiliar para carregar os amigos do usuario na listView de amigos
+     */
     public void exibeAmigos() {
         listViewAmigos.getItems().clear();
         listViewAmigos.setCellFactory(usuarioListView -> new UsuarioListViewCell());
@@ -229,6 +288,11 @@ public class PerfilController implements Initializable {
         }
     }
 
+    /**
+     * Metodo para trocar para a tela de login ao clicar no botao sair
+     *
+     * @param event
+     */
     @FXML
     void sair(ActionEvent event) {
         Main.changeScreen("login");

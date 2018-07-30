@@ -17,6 +17,11 @@ import javafx.scene.image.ImageView;
 import model.Usuario;
 import view.Main;
 
+/**
+ * Classe controladora da tela do perfil dos amigos ou da busca
+ *
+ * @author Igor Gonçalves
+ */
 public class AmigoPerfilController implements Initializable {
 
     private Controller ctr = Main.getCtr();
@@ -63,20 +68,41 @@ public class AmigoPerfilController implements Initializable {
 
     private Usuario usuarioLogado;
 
+    /**
+     * Setter do Usuario que está logado
+     *
+     * @param usuarioLogado
+     */
     public void setUsuarioLogado(Usuario usuarioLogado) {
 
         this.usuarioLogado = usuarioLogado;
     }
 
+    /**
+     * Setter do usuario que está sendo visto o perfil
+     *
+     * @param usuarioPerfil
+     */
     public void setUsuarioPerfil(Usuario usuarioPerfil) {
         this.usuarioPerfil = usuarioPerfil;
     }
 
+    /**
+     * Metodo para mudar de tela ao clicar no botao sair e ir voltar para tela
+     * de login
+     *
+     * @param event
+     */
     @FXML
     void sair(ActionEvent event) {
         Main.changeScreen("login");
     }
 
+    /**
+     * Metodo para Voltr para a tela de perfil do usuario logado
+     *
+     * @param event
+     */
     @FXML
     void voltar(ActionEvent event) {
         Main.getCtrPerfil().exibeAmigos();
@@ -84,6 +110,11 @@ public class AmigoPerfilController implements Initializable {
         Main.changeScreen("perfil");
     }
 
+    /**
+     * Meto para trocar para a tela do pefil de um amigo ao clicar no botao
+     *
+     * @param event
+     */
     @FXML
     void irParaAmigo(ActionEvent event) {
         Usuario amigo = listViewAmigos.getSelectionModel().getSelectedItem();
@@ -92,6 +123,12 @@ public class AmigoPerfilController implements Initializable {
         this.iniciar();
     }
 
+    /**
+     * metodo para adicionar o usuario que esta sendo exibido o perfil como
+     * amigo do usuario logado
+     *
+     * @param event
+     */
     @FXML
     void adicionar(ActionEvent event) {
         ctr.getUsuarios().addAresta(usuarioLogado, usuarioPerfil, 0);
@@ -102,11 +139,19 @@ public class AmigoPerfilController implements Initializable {
         exibeAmigos();
     }
 
+    /**
+     * Metodo auxiliar para printar as mensagens na listView de Mensagens
+     *
+     */
     public void exibeMesagens() {
         ObservableList list = FXCollections.observableArrayList(usuarioPerfil.getMensagens());
         listViewMensagens.setItems(list);
     }
 
+    /**
+     * Metodo auxiliar para printar os amigos de um usuario na listView de
+     * amigos
+     */
     public void exibeAmigos() {
         listViewAmigos.getItems().clear();
         listViewAmigos.setCellFactory(usuarioListView -> new UsuarioListViewCell());
@@ -117,6 +162,10 @@ public class AmigoPerfilController implements Initializable {
         }
     }
 
+    /**
+     * Metodo auxiliar para exibir todas as informações do usuario na tela de
+     * perfil assim que a tela ficar visivel
+     */
     void iniciar() {
         exibeMesagens();
         exibeAmigos();

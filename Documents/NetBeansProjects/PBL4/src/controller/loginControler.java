@@ -16,6 +16,11 @@ import javafx.scene.image.ImageView;
 import model.Usuario;
 import view.Main;
 
+/**
+ * Classe Controladora da tela de login
+ *
+ * @author Igor Gonçalves
+ */
 public class loginControler implements Initializable {
 
     private Controller ctr = Main.getCtr();
@@ -37,6 +42,11 @@ public class loginControler implements Initializable {
     @FXML
     private Button cadastre;
 
+    /**
+     * Metodo para ir para tela de cadastro ao clicar no botao
+     *
+     * @param event
+     */
     @FXML
     void cadastrese(ActionEvent event) {
         Main.changeScreen("cadastrar");
@@ -45,6 +55,13 @@ public class loginControler implements Initializable {
         login.setText("");
     }
 
+    /**
+     * Metodo para verificar as informações de login e ir ao perfil caso as
+     * informações sejam iguais
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void login(ActionEvent event) throws IOException {
         Usuario user = ctr.verificarLogin(login.getText());

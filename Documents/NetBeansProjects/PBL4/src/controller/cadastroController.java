@@ -18,6 +18,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Usuario;
 import view.Main;
 
+/**
+ * Classe Controladora da tela de cadastro
+ *
+ * @author Igor Gonçalves
+ */
 public class cadastroController implements Initializable {
 
     private Controller ctr = Main.getCtr();
@@ -52,6 +57,12 @@ public class cadastroController implements Initializable {
     @FXML
     private TextField email;
 
+    /**
+     * Cadastra as informações do usuario ao clicar no botao
+     *
+     * @param event
+     * @throws DuplicateKeyException
+     */
     @FXML
     void cadastroBotao(ActionEvent event) throws DuplicateKeyException {
         btn.setEffect(null);
@@ -73,6 +84,11 @@ public class cadastroController implements Initializable {
         imgPerfil.setImage(new Image(file.toURI().toString()));
     }
 
+    /**
+     * Para procurar uma imagem no explorador de arquivos do windows
+     *
+     * @param event
+     */
     @FXML
     void procurarImg(ActionEvent event) {
         JFileChooser chooser = new JFileChooser();
